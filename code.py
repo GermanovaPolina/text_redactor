@@ -14,7 +14,7 @@ class MyWidget(QMainWindow):
         self.buttons = [self.trns, self.cphr, self.chw, self.keys, self.rev,
                         self.stata]
         self.fin, self.out = '', ''
-        self.end.hide()
+        self.end.hide() #подсказка изначально спрятана
         
         self.btn.clicked.connect(self.getFiles)
         self.trns.clicked.connect(self.transliteration)
@@ -24,7 +24,7 @@ class MyWidget(QMainWindow):
         self.rev.clicked.connect(self.rtext)
         self.stata.clicked.connect(self.statistics)
         
-    def getFiles(self):
+    def getFiles(self): #функция взятие имен файлов у пользователя
         i, okBtnPressed = QInputDialog.getText(
             self, "Файлы", "Введите имена файлов ввода\nи вывода через пробел")
         if okBtnPressed:
@@ -44,7 +44,7 @@ class MyWidget(QMainWindow):
                                            "Не найден файл ввода!  ",
                                            QMessageBox.Close)
                    
-    def transliteration(self):
+    def transliteration(self): #функция транслитерация
         alphabet = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e',
                     'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'i',
                     'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
@@ -69,7 +69,7 @@ class MyWidget(QMainWindow):
         for button in self.buttons:
             button.setEnabled(False)  
             
-    def cipher(self):
+    def cipher(self): #функция шифра
         shift, okBtnPressed = QInputDialog.getInt(
             self, "Смещение", "Выберите сдвиг", 0, -25, 25, 1)
         if okBtnPressed:        
@@ -97,7 +97,7 @@ class MyWidget(QMainWindow):
             for button in self.buttons:
                 button.setEnabled(False)
     
-    def change_word(self):
+    def change_word(self): #фунция замены слова
         try:
             i, okBtnPressed = QInputDialog.getText(
                 self, "Cлова",
@@ -130,7 +130,7 @@ class MyWidget(QMainWindow):
                                        "Введите два слова!",
                                        QMessageBox.Close)
             
-    def qwerty(self):
+    def qwerty(self): #функция перехода из одной раскладки в другую
         ru_en = {'а': 'f', 'б': ',', 'в': 'd', 'г': 'u', 'д': 'l', 'е': 't',
                     'ё': '`', 'ж': ';', 'з': 'p', 'и': 'b', 'й': 'q',
                     'к': 'r', 'л': 'k', 'м': 'v', 'н': 'y', 'о': 'j', 'п': 'g',
@@ -139,7 +139,7 @@ class MyWidget(QMainWindow):
                     'ы': 's', 'э': '\'', 'ю': '.', 'я': 'z', 'ь': 'm',
                     'ъ': ']', 'Э': '"', 'Ж': ':', 'Ъ': '}', 'Х': '{', 'Б': '<',
                     'Ю': '>', '.': '/', ',': '?'}
-        en_ru = dict([(v, k) for k, v in ru_en.items()])
+        en_ru = dict([(v, k) for k, v in ru_en.items()]) #обратный словарь
         print(en_ru)
         i, okBtnPressed = QInputDialog.getItem(
             self, "Раскладка", "Из какой раскладки вы хотите перевод?",
@@ -169,7 +169,7 @@ class MyWidget(QMainWindow):
             for button in self.buttons:
                 button.setEnabled(False) 
     
-    def rtext(self):
+    def rtext(self): #функция обратного текста
         text = self.fin.read()
         n_text = []
         for word in text.split()[::-1]:
@@ -183,7 +183,7 @@ class MyWidget(QMainWindow):
         for button in self.buttons:
             button.setEnabled(False)
             
-    def statistics(self):
+    def statistics(self): #функция статистика
         text = self.fin.read().split()
         words = dict()
         letters = dict()
